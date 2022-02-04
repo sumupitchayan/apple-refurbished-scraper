@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 from bs4 import BeautifulSoup
 import requests
+import os
+from twilio.rest import Client
+
+# WEB SCRAPING ----------------------------------------------------------------------
 
 def scrapeSite():
     url = "https://www.apple.com/shop/refurbished/mac/macbook-air"
@@ -27,11 +31,27 @@ def scrapeSite():
             store_link = "apple.com" + link_ext
 
             # if it is a Macbook Air, then add to our list
-            if "MacBook" in title:
+            if "MacBook Air" in title and "2020" in title:
                 item = {"title" : title, "price" : price, "link" : store_link}
                 macbooks.append(item)
-    
+        
     print(macbooks)
+
+# TWILIO ALERTS ---------------------------------------------------------------------
+
+# Find your Account SID and Auth Token at twilio.com/console
+# and set the environment variables. See http://twil.io/secure
+# account_sid = os.environ['TWILIO_ACCOUNT_SID']
+# auth_token = os.environ['TWILIO_AUTH_TOKEN']
+# client = Client(account_sid, auth_token)
+
+# def sendText():
+#     message = client.messages \
+#     .create(
+#          body='HERE IS A TEST MSG BABY',
+#          from_='+19035517612',
+#          to='+19175025772'
+#      )
 
 # -----------------------------------------
 
